@@ -21,7 +21,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print("abc${dialogueController.isValidate.value}");
     return Scaffold(
         appBar: AppBar(
           title: Text("home page"),
@@ -38,13 +37,14 @@ class _MyAppState extends State<MyApp> {
                 },
                 icon: Icon(Icons.add),
               ),
-            )
+            ),
+            
           ],
         ),
         body: GetBuilder<DialogueController>(builder: (dialogueController) {
-          // //  if (dialogueController.myData.name == null) {
-          //     return Center(child: CircularProgressIndicator());
-          //   }
+           if (dialogueController.myData.name == null) {
+              return Center(child: CircularProgressIndicator());
+            }
           return Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

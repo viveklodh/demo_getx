@@ -10,7 +10,8 @@ class CustomDialogBox extends StatelessWidget {
   String? dropDownValue;
 
   TextEditingController nameController = TextEditingController();
-  DialogueController dialogueController = DialogueController();
+  // ! find karna hai tuje contorller
+  var x = Get.find<DialogueController>();
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +56,8 @@ class CustomDialogBox extends StatelessWidget {
                 height: 22,
               ),
               DropdownButtonFormField<int>(
-                value: dialogueController.items[0],
-                items: dialogueController.items
+                value: x.items[0],
+                items: x.items
                     .map((label) => DropdownMenuItem(
                           child: Text(label.toString()),
                           value: label,
@@ -72,7 +73,7 @@ class CustomDialogBox extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () {
                       // if(dialogueController.validation() == true){
-                      dialogueController.setMyData(MyData(
+                      x.setMyData(MyData(
                           name: nameController.text,
                           date: selectedDate.toString(),
                           dropValue: dropDownValue));
