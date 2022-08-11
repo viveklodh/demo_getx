@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DialogueController extends GetxController {
-  MyData myData = MyData();
+  var myData = MyData();
 
   // var nameController = "".obs;
   //
