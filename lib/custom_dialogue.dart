@@ -1,5 +1,4 @@
 import 'package:demo/controller.dart';
-import 'package:demo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +9,8 @@ class CustomDialogBox extends StatelessWidget {
   String? dropDownValue;
 
   TextEditingController nameController = TextEditingController();
-  // ! find karna hai tuje contorller
-  var x = Get.find<DialogueController>();
+
+  DialogueController dialogueController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +30,9 @@ class CustomDialogBox extends StatelessWidget {
             children: [
               TextFormField(
                 controller: nameController,
+                onChanged: (v) {
+                  dialogueController.nameController.value = v;
+                },
                 decoration: InputDecoration(
                   focusColor: Colors.white,
                   border: OutlineInputBorder(
@@ -56,8 +58,8 @@ class CustomDialogBox extends StatelessWidget {
                 height: 22,
               ),
               DropdownButtonFormField<int>(
-                value: x.items[0],
-                items: x.items
+                value: dialogueController.items[0],
+                items: dialogueController.items
                     .map((label) => DropdownMenuItem(
                           child: Text(label.toString()),
                           value: label,
@@ -65,22 +67,18 @@ class CustomDialogBox extends StatelessWidget {
                     .toList(),
                 hint: Text('Rating'),
                 onChanged: (value) {
-                  dropDownValue = value.toString();
+                  dialogueController.dropDownValue.value = value.toString();
                 },
               ),
               Align(
                 alignment: Alignment.bottomRight,
                 child: ElevatedButton(
                     onPressed: () {
-                      // if(dialogueController.validation() == true){
-                      x.setMyData(MyData(
-                          name: nameController.text,
-                          date: selectedDate.toString(),
-                          dropValue: dropDownValue));
-                      //}
-                      Navigator.pop(context);
-                      //     : null;
-                      // print(dialogueController.nameController.value);
+                      if (dialogueController.validation()) {
+                        Navigator.pop(context);
+                      } else {
+                        print("not validate");
+                      }
                     },
                     child: Text(
                       "Submit",
@@ -102,6 +100,7 @@ class CustomDialogBox extends StatelessWidget {
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
+      dialogueController.date.value = selectedDate.toString();
     }
   }
 }

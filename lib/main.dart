@@ -38,28 +38,24 @@ class _MyAppState extends State<MyApp> {
                 icon: Icon(Icons.add),
               ),
             ),
-            
           ],
         ),
-        body: GetBuilder<DialogueController>(builder: (dialogueController) {
-           if (dialogueController.myData.name == null) {
-              return Center(child: CircularProgressIndicator());
-            }
-          return Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Text(dialogueController.myData.name.toString()),
-                    Text(dialogueController.myData.date.toString()),
-                    Text(dialogueController.myData.dropValue.toString()),
-                  ],
-                ),
-              ],
-            ),
-          );
-        }));
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Obx(() => dialogueController.validation()
+                  ? Column(
+                      children: [
+                        Text(dialogueController.nameController.value),
+                        Text(dialogueController.date.value),
+                        Text(dialogueController.dropDownValue.value),
+                      ],
+                    )
+                  : CircularProgressIndicator()),
+            ],
+          ),
+        ));
   }
 }
